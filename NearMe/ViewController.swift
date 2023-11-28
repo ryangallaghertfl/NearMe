@@ -39,6 +39,8 @@ class ViewController: UIViewController {
         view.addSubview(searchTextField)
         view.addSubview(mapView)
         
+        view.bringSubviewToFront(searchTextField)
+        
         //add constraints to searchtextfield
         
         searchTextField.heightAnchor.constraint(equalToConstant: 44).isActive = true
