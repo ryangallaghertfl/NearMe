@@ -69,15 +69,16 @@ class ViewController: UIViewController {
     private func checkLocationAuthorisation() {
         guard let locationManager = locationManager,
               let location = locationManager.location else {return}
+        
         switch locationManager.authorizationStatus {
-        case .authorizedAlways, .authorizedAlways:
-            print("authorised")
-        case .denied:
-            print("denied")
-        case .notDetermined, .restricted:
-            print("?")
-        @unknown default:
-            print("default")
+            case .authorizedWhenInUse, .authorizedAlways:
+                print("authorised")
+            case .denied:
+                print("denied")
+            case .notDetermined, .restricted:
+                print("?")
+            @unknown default:
+                print("default")
         }
     }
 
