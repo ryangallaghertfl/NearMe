@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         searchTextField.clipsToBounds = true
         searchTextField.backgroundColor = UIColor.white
         searchTextField.placeholder = "Search"
-        searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0)) //leftview manages the appearance of a view on the left side of text field
+        searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0)) //leftview manages the appearance of a view on the left side of text field - this applies a margin for the cursor
         searchTextField.leftViewMode = .always
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         return searchTextField
