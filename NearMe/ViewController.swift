@@ -10,6 +10,8 @@ import MapKit
 
 class ViewController: UIViewController {
     
+    var locationManager: CLLocationManager?
+    
     lazy var mapView: MKMapView = {
         let map = MKMapView()
         map.translatesAutoresizingMaskIntoConstraints = false
@@ -31,6 +33,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.requestLocation()
+        
         setupUI()
     }
     
