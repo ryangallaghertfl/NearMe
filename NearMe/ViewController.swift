@@ -65,6 +65,21 @@ class ViewController: UIViewController {
         mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         mapView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
+    
+    private func checkLocationAuthorisation() {
+        guard let locationManager = locationManager,
+              let location = locationManager.location else {return}
+        switch locationManager.authorizationStatus {
+        case .authorizedAlways, .authorizedAlways:
+            print("authorised")
+        case .denied:
+            print("denied")
+        case .notDetermined, .restricted:
+            print("?")
+        @unknown default:
+            print("default")
+        }
+    }
 
 
 }
@@ -76,7 +91,13 @@ extension ViewController: CLLocationManagerDelegate {
         //
     }
     
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuthorisation()
+    }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
+    
+    
 }
