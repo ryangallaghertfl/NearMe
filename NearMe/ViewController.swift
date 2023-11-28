@@ -37,6 +37,7 @@ class ViewController: UIViewController {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()
+        locationManager?.requestAlwaysAuthorization()
         locationManager?.requestLocation()
         
         setupUI()
