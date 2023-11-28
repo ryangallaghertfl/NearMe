@@ -72,7 +72,8 @@ class ViewController: UIViewController {
         
         switch locationManager.authorizationStatus {
             case .authorizedWhenInUse, .authorizedAlways:
-                print("authorised")
+                let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 850, longitudinalMeters: 850)
+                mapView.setRegion(region, animated: true)
             case .denied:
                 print("denied")
             case .notDetermined, .restricted:
