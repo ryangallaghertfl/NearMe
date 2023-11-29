@@ -89,7 +89,7 @@ class ViewController: UIViewController {
     
     private func findNearbyPlaces(by query: String) {
         //clear all pins
-        mapView.removeAnnotation(mapView.annotations as! MKAnnotation)
+        mapView.removeAnnotations(mapView.annotations)
         
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = query
@@ -131,6 +131,7 @@ extension ViewController: UITextFieldDelegate {
         if !text.isEmpty {
             textField.resignFirstResponder() //makes sure that the keyboard goes away
             //find nearby places
+            findNearbyPlaces(by: text)
         }
         return true
     }
