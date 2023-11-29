@@ -82,8 +82,19 @@ class ViewController: UIViewController {
             @unknown default:
                 print("Unknown error. Unable to get location.")
         }
+        
+        print("MapView region is: \(mapView.region)")
     }
 
+    
+//    private func findNearbyPlaces(by query: String) {
+//        //clear all pins
+//        mapView.removeAnnotation(mapView.annotations)
+//        
+//        let request = MKLocalSearch.Request()
+//        request.naturalLanguageQuery = query
+//        request.region = mapView.region
+//    }
 
 }
 
