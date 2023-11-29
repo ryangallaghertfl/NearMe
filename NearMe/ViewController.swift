@@ -195,8 +195,12 @@ extension ViewController: UITextFieldDelegate {
 extension ViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
-        guard let placeAnnotation = annotation as? PlaceAnnotation else {return}
+        guard let selectionAnnotation = annotation as? PlaceAnnotation else {return}
         
+        let placeAnnotation = self.places.first(where: {$0.id == selectionAnnotation.id})
+        placeAnnotation?.isSelected = true
+        
+        presentPlacesSheet(places: self.places)
         
     }
     
