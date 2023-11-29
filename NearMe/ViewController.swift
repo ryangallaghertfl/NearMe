@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     
     var locationManager: CLLocationManager?
     
+    let defaultLocation = CLLocation(latitude: 51.4779, longitude: 0.0015) //Greenwich, London
+    
     lazy var mapView: MKMapView = {
         let map = MKMapView()
         map.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +71,8 @@ class ViewController: UIViewController {
     
     private func checkLocationAuthorisation() {
         guard let locationManager = locationManager,
-              let location = locationManager.location else {return}
+              var location = locationManager.location else {return} //NB change back to let
+              location = defaultLocation //for testing only, default to Greenwich
         
         switch locationManager.authorizationStatus {
             case .authorizedWhenInUse, .authorizedAlways:
