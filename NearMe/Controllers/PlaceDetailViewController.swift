@@ -58,6 +58,21 @@ class PlaceDetailViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
     
+    @objc func directionsButtonTapped(_ sender: UIButton) {
+        let coordinate = place.location.coordinate
+        guard let url = URL(string: "http://maps.apple.com/?daddr=\(coordinate.latitude),\(coordinate.longitude)") //triggers Apple Maps
+        else { return }
+           
+        UIApplication.shared.open(url)
+       }
+       
+       @objc func callButtonTapped(_ sender: UIButton) {
+           
+        guard let url = URL(string: "tel://\(place.phone.formatPhoneForCall)") else { return }
+        UIApplication.shared.open(url)
+           
+       }
+    
     
     //MARK: setting up UI
     
@@ -83,6 +98,9 @@ class PlaceDetailViewController: UIViewController {
         contactStackView.translatesAutoresizingMaskIntoConstraints = false
         contactStackView.axis = .horizontal
         contactStackView.spacing = UIStackView.spacingUseSystem
+        directionsButton.addTarget(self, action: #selector(directionsButtonTapped), for: .touchUpInside)
+        callButton.addTarget(self, action: #selector(callButtonTapped), for: .touchUpInside)
+        
         contactStackView.addArrangedSubview(directionsButton)
         contactStackView.addArrangedSubview(callButton)
         stackView.addArrangedSubview(contactStackView)
