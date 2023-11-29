@@ -28,6 +28,10 @@ class PlaceAnnotation: MKPointAnnotation {
         mapItem.phoneNumber ?? ""
     }
     
+    var address: String {
+        "\(mapItem.placemark.subThoroughfare ?? "") \(mapItem.placemark.thoroughfare ?? "") \(mapItem.placemark.locality ?? "") \(mapItem.placemark.countryCode ?? "")"
+    }
+    
     var location: CLLocation {
         mapItem.placemark.location ?? CLLocation.default
     }
