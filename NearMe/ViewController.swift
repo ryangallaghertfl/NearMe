@@ -107,6 +107,20 @@ extension ViewController {
         
         print("MapView region is: \(mapView.region)")
     }
+    
+//MARK: presentPlacesSheet is called by textFieldShouldReturn in VC implementing UITextFieldDelegate
+    
+    private func presentPlacesSheet() {
+        
+        let placesTVC = PlacesTableViewController()
+        placesTVC.modalPresentationStyle = .pageSheet
+        
+        if let sheet = placesTVC.sheetPresentationController {
+            sheet.prefersGrabberVisible = true //coming from bottom
+            sheet.detents = [.medium(), .large()] //display in multiple formats
+            present(placesTVC, animated: true)
+        }
+    }
 
 //MARK: making request to MKLocalSearch API and handling responses
     
@@ -126,7 +140,7 @@ extension ViewController {
             places.forEach { place in
                 self?.mapView.addAnnotation(place) //to avoid circular referencing, optional self and weak self
             }
-            print(response.mapItems)
+            self?.presentPlacesSheet()
         }
     
     }
