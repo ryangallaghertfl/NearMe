@@ -195,6 +195,10 @@ extension ViewController: UITextFieldDelegate {
 extension ViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
+        
+        //clear all selections
+        clearAllSelections()
+        
         guard let selectionAnnotation = annotation as? PlaceAnnotation else {return}
         
         let placeAnnotation = self.places.first(where: {$0.id == selectionAnnotation.id})
@@ -202,6 +206,13 @@ extension ViewController: MKMapViewDelegate {
         
         presentPlacesSheet(places: self.places)
         
+    }
+    
+    private func clearAllSelections() {
+        self.places = self.places.map { place in
+            place.isSelected = false
+            return place
+        }
     }
     
 }
