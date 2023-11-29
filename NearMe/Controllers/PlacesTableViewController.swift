@@ -37,6 +37,8 @@ class PlacesTableViewController: UITableViewController {
         content.text = place.name
         content.secondaryText = formatDistanceForDisplay(calculateDistance(from: userLocation, to: place.location))
         cell.contentConfiguration = content
+        
+        cell.backgroundColor = place.isSelected ? UIColor.lightGray: UIColor.clear // selected pin's sheet list item has background colour changed
         return cell
     }
     
