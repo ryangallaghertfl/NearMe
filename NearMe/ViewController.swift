@@ -108,4 +108,13 @@ extension ViewController: CLLocationManagerDelegate {
 
 extension ViewController: UITextFieldDelegate {
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let text = textField.text ?? ""
+        if !text.isEmpty {
+            textField.resignFirstResponder() //makes sure that the keyboard goes away
+            //find nearby places
+        }
+        return true
+    }
+    
 }
