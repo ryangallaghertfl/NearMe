@@ -31,6 +31,22 @@ class PlaceDetailViewController: UIViewController {
         return label
     }()
     
+    var directionsButton: UIButton = {
+        var config = UIButton.Configuration.bordered()
+        let button = UIButton(configuration: config)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Directions", for: .normal)
+        return button
+    }()
+    
+    var callButton: UIButton = {
+        var config = UIButton.Configuration.bordered()
+        let button = UIButton(configuration: config)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Call", for: .normal)
+        return button
+    }()
+    
     init(place: PlaceAnnotation) {
         self.place = place
         super.init(nibName: nil, bundle: nil)
@@ -54,13 +70,22 @@ class PlaceDetailViewController: UIViewController {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20) //it's not touching edges of screen
         
+        //name and address label
         nameLabel.text = place.name
         addressLabel.text = place.address
-        
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(addressLabel)
         
         nameLabel.widthAnchor.constraint(equalToConstant: view.bounds.width - 20).isActive = true
+        
+        //contactStackView for placing buttons side-by-side
+        let contactStackView = UIStackView()
+        contactStackView.translatesAutoresizingMaskIntoConstraints = false
+        contactStackView.axis = .horizontal
+        contactStackView.spacing = UIStackView.spacingUseSystem
+        contactStackView.addArrangedSubview(directionsButton)
+        contactStackView.addArrangedSubview(callButton)
+        stackView.addArrangedSubview(contactStackView)
         
         view.addSubview(stackView)
     }
