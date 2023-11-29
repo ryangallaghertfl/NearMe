@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     
     lazy var searchTextField: UITextField = {
         let searchTextField = UITextField()
+        searchTextField.delegate = self
         searchTextField.layer.cornerRadius = 10
         searchTextField.clipsToBounds = true
         searchTextField.backgroundColor = UIColor.white
@@ -101,5 +102,10 @@ extension ViewController: CLLocationManagerDelegate {
         print(error)
     }
     
+}
+
+//MARK: Conform to UITextFieldDelegate
+
+extension ViewController: UITextFieldDelegate {
     
 }
