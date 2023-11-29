@@ -73,6 +73,7 @@ class ViewController: UIViewController {
         guard let locationManager = locationManager,
               var location = locationManager.location else {return} //NB change back to let
               location = defaultLocation //for testing only, default to Greenwich
+   
         
         switch locationManager.authorizationStatus {
             case .authorizedWhenInUse, .authorizedAlways:
@@ -99,8 +100,13 @@ class ViewController: UIViewController {
         request.region = mapView.region
         
         let search = MKLocalSearch(request: request)
-        search.start { response, error in
+        search.start { [weak self] response, error in
             guard let response = response, error == nil else {return}
+            
+            let places = response.mapItems.map(PlaceAnnotation.init) //parse items into PlaceAnnotation model
+            places.forEach { place in
+                self?.mapView.addAnnotation(place) //to avoid circular referencing, optional self and weak self
+            }
             print(response.mapItems)
         }
     
