@@ -87,14 +87,21 @@ class ViewController: UIViewController {
     }
 
     
-//    private func findNearbyPlaces(by query: String) {
-//        //clear all pins
-//        mapView.removeAnnotation(mapView.annotations)
-//        
-//        let request = MKLocalSearch.Request()
-//        request.naturalLanguageQuery = query
-//        request.region = mapView.region
-//    }
+    private func findNearbyPlaces(by query: String) {
+        //clear all pins
+        mapView.removeAnnotation(mapView.annotations as! MKAnnotation)
+        
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = query
+        request.region = mapView.region
+        
+        let search = MKLocalSearch(request: request)
+        search.start { response, error in
+            guard let response = response, error == nil else {return}
+            print(response.mapItems)
+        }
+    
+    }
 
 }
 
