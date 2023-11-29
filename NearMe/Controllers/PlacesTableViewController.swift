@@ -34,12 +34,21 @@ class PlacesTableViewController: UITableViewController {
         //cell config
         var content = cell.defaultContentConfiguration()
         content.text = place.name
-        content.secondaryText = "Secondary Text"
+        content.secondaryText = formatDistanceForDisplay(calculateDistance(from: userLocation, to: place.location))
         cell.contentConfiguration = content
         return cell
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func calculateDistance(from: CLLocation, to: CLLocation) -> CLLocationDistance {
+        from.distance(from: to)
+    }
+    
+    private func formatDistanceForDisplay(_ distance: CLLocationDistance) -> String {
+        let metres = Measurement(value: distance, unit: UnitLength.meters)
+        return metres.converted(to: .miles).formatted()
     }
 }
