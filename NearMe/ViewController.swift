@@ -56,6 +56,7 @@ extension ViewController {
     
     private func setUpMapView() -> MKMapView {
         let map = MKMapView()
+        map.delegate = self
         map.translatesAutoresizingMaskIntoConstraints = false
         map.showsUserLocation = true
         return map
@@ -181,6 +182,18 @@ extension ViewController: UITextFieldDelegate {
             findNearbyPlaces(by: text)
         }
         return true
+    }
+    
+}
+
+//MARK: Conform to MKMapViewDelegate for selecting map items
+
+extension ViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
+        guard let placeAnnotation = annotation as? PlaceAnnotation else {return}
+        
+        
     }
     
 }
