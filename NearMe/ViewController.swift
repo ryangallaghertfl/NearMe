@@ -75,11 +75,11 @@ class ViewController: UIViewController {
                 let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 850, longitudinalMeters: 850)
                 mapView.setRegion(region, animated: true)
             case .denied:
-                print("denied")
+                print("Location services denied")
             case .notDetermined, .restricted:
-                print("?")
+                print("Location services cannot be determined or is restricted")
             @unknown default:
-                print("default")
+                print("Unknown error. Unable to get location.")
         }
     }
 
