@@ -110,7 +110,7 @@ extension ViewController {
     
 //MARK: presentPlacesSheet is called by textFieldShouldReturn in VC implementing UITextFieldDelegate
     
-    private func presentPlacesSheet() {
+    private func presentPlacesSheet(places: [PlaceAnnotation]) {
         
         let placesTVC = PlacesTableViewController()
         placesTVC.modalPresentationStyle = .pageSheet
@@ -140,7 +140,7 @@ extension ViewController {
             places.forEach { place in
                 self?.mapView.addAnnotation(place) //to avoid circular referencing, optional self and weak self
             }
-            self?.presentPlacesSheet()
+            self?.presentPlacesSheet(places)
         }
     
     }
