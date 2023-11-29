@@ -89,8 +89,8 @@ extension ViewController {
     
     private func checkLocationAuthorisation() {
         guard let locationManager = locationManager,
-              var location = locationManager.location else {return} //NB change back to let
-              location = defaultLocation //for testing only, default to Greenwich
+              let location = locationManager.location else {return}
+        //location = defaultLocation //for testing only, default to Greenwich
    
         
         switch locationManager.authorizationStatus {
@@ -108,11 +108,16 @@ extension ViewController {
         print("MapView region is: \(mapView.region)")
     }
     
+    
 //MARK: presentPlacesSheet is called by textFieldShouldReturn in VC implementing UITextFieldDelegate
     
     private func presentPlacesSheet(places: [PlaceAnnotation]) {
         
-        let placesTVC = PlacesTableViewController()
+        guard let locationManager = locationManager,
+              let userLocation = locationManager.location
+        else {return}
+        
+        let placesTVC = PlacesTableViewController(userLocation: userLocation, places: places)
         placesTVC.modalPresentationStyle = .pageSheet
         
         if let sheet = placesTVC.sheetPresentationController {
@@ -140,7 +145,7 @@ extension ViewController {
             places.forEach { place in
                 self?.mapView.addAnnotation(place) //to avoid circular referencing, optional self and weak self
             }
-            self?.presentPlacesSheet(places)
+            self?.presentPlacesSheet(places: places)
         }
     
     }
