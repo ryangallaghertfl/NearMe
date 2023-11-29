@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     var locationManager: CLLocationManager?
     
-    let defaultLocation = CLLocation(latitude: 51.4779, longitude: 0.0015) //Greenwich, London
+    let defaultLocation = CLLocation(latitude: 51.500800, longitude: 0.005650) //Greenwich, London
     
     lazy var mapView: MKMapView = {
         let map = MKMapView()
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
         
         switch locationManager.authorizationStatus {
             case .authorizedWhenInUse, .authorizedAlways:
-                let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 850, longitudinalMeters: 850)
+                let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 1609, longitudinalMeters: 1609)
                 mapView.setRegion(region, animated: true)
             case .denied:
                 print("Location services denied")

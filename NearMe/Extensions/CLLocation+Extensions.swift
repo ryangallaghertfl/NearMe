@@ -11,7 +11,7 @@ import CoreLocation
 extension CLLocation {
     
     static var `default`: CLLocation {
-        CLLocation(latitude: 51.4779, longitude: 0.0015)
+        CLLocation(latitude: 51.500800, longitude: 0.005650)
     }
 }
 
