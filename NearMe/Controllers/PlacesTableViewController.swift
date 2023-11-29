@@ -43,7 +43,9 @@ class PlacesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let place = places[indexPath.row] //place tappedn on
+        let place = places[indexPath.row] //place tapped on
+        let placeDetailVC = PlaceDetailViewController(place: place)
+        present(placeDetailVC, animated: true)
     }
     
     required init?(coder: NSCoder) {
