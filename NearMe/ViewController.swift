@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     
     var locationManager: CLLocationManager?
     
+    private var places: [PlaceAnnotation] = []
+    
     let defaultLocation = CLLocation(latitude: 51.500800, longitude: 0.005650) //Greenwich, London
     
     lazy var mapView: MKMapView = {
@@ -142,11 +144,13 @@ extension ViewController {
         search.start { [weak self] response, error in
             guard let response = response, error == nil else {return}
             
-            let places = response.mapItems.map(PlaceAnnotation.init) //parse items into PlaceAnnotation model
-            places.forEach { place in
+            self?.places = response.mapItems.map(PlaceAnnotation.init) //parse items into PlaceAnnotation model
+            self?.places.forEach { place in
                 self?.mapView.addAnnotation(place) //to avoid circular referencing, optional self and weak self
             }
-            self?.presentPlacesSheet(places: places)
+            if let places = self?.places {
+                self?.presentPlacesSheet(places: places)
+            }
         }
     
     }
