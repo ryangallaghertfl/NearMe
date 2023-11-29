@@ -11,7 +11,7 @@ import MapKit
 
 class PlacesTableViewController: UITableViewController {
     var userLocation: CLLocation
-    let places: ([PlaceAnnotation])
+    var places: ([PlaceAnnotation])
     
     init(userLocation: CLLocation, places: [PlaceAnnotation]) {
         self.userLocation = userLocation
@@ -21,6 +21,7 @@ class PlacesTableViewController: UITableViewController {
         //register tableviewcell
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PlaceCell")
+        self.places.swapAt(indexForSelectedRow ?? 0, 0)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { //number of rows in section
@@ -42,6 +43,14 @@ class PlacesTableViewController: UITableViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: private func moves selected pin item to top of sheet list
+    
+    private var indexForSelectedRow: Int? {
+        self.places.firstIndex(where: {$0.isSelected == true})
+    }
+    
+    //MARK: private funcs for calculate distance from user to selected item and formatting result
     
     private func calculateDistance(from: CLLocation, to: CLLocation) -> CLLocationDistance {
         from.distance(from: to)
