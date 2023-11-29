@@ -15,23 +15,11 @@ class ViewController: UIViewController {
     let defaultLocation = CLLocation(latitude: 51.500800, longitude: 0.005650) //Greenwich, London
     
     lazy var mapView: MKMapView = {
-        let map = MKMapView()
-        map.translatesAutoresizingMaskIntoConstraints = false
-        map.showsUserLocation = true
-        return map
+        return setUpMapView()
     }()
     
     lazy var searchTextField: UITextField = {
-        let searchTextField = UITextField()
-        searchTextField.delegate = self
-        searchTextField.layer.cornerRadius = 10
-        searchTextField.clipsToBounds = true
-        searchTextField.backgroundColor = UIColor.white
-        searchTextField.placeholder = "Search"
-        searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0)) //leftview manages the appearance of a view on the left side of text field - this applies a margin for the cursor
-        searchTextField.leftViewMode = .always
-        searchTextField.translatesAutoresizingMaskIntoConstraints = false
-        return searchTextField
+        return setUpSearchTextField()
     }()
 
     override func viewDidLoad() {
@@ -46,6 +34,34 @@ class ViewController: UIViewController {
         setupUI()
     }
     
+}
+
+//MARK: extracted private functions
+
+extension ViewController {
+    
+//MARK: setup properties
+    private func setUpSearchTextField() -> UITextField {
+        let searchTextField = UITextField()
+        searchTextField.delegate = self
+        searchTextField.layer.cornerRadius = 10
+        searchTextField.clipsToBounds = true
+        searchTextField.backgroundColor = UIColor.white
+        searchTextField.placeholder = "Search"
+        searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0)) //leftview manages the appearance of a view on the left side of text field - this applies a margin for the cursor
+        searchTextField.leftViewMode = .always
+        searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        return searchTextField
+    }
+    
+    private func setUpMapView() -> MKMapView {
+        let map = MKMapView()
+        map.translatesAutoresizingMaskIntoConstraints = false
+        map.showsUserLocation = true
+        return map
+    }
+    
+//MARK: setup constraints on subviews
     private func setupUI() {
         
         view.addSubview(searchTextField)
@@ -68,6 +84,8 @@ class ViewController: UIViewController {
         mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         mapView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
+
+//MARK: handling authorisation status
     
     private func checkLocationAuthorisation() {
         guard let locationManager = locationManager,
@@ -90,6 +108,7 @@ class ViewController: UIViewController {
         print("MapView region is: \(mapView.region)")
     }
 
+//MARK: making request to MKLocalSearch API and handling responses
     
     private func findNearbyPlaces(by query: String) {
         //clear all pins
@@ -111,7 +130,7 @@ class ViewController: UIViewController {
         }
     
     }
-
+    
 }
 
 //MARK: conforming to CLLocationManagerDelegate
