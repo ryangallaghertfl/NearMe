@@ -18,6 +18,10 @@ class PlaceDetailViewController: UIViewController {
         setupUI()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+    }
     
     
     //MARK: setting up UI
